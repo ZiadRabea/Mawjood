@@ -1,0 +1,240 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="{%static 'imgs/logo.png'%}">
+  <title>Student Report</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #F2EFE7;
+      --soft: #9ACBD0;
+      --mid: #48A6A7;
+      --strong: #2973B2;
+      --card-bg: #fff;
+      --muted-border: #e6e7e4;
+      --radius: 12px;
+      --text: #21303a;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* Header */
+    header {
+      background-color: var(--bg);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: var(--strong);
+    }
+
+    .icons {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .icons i {
+      font-size: 1.3rem;
+      color: var(--mid);
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .icons i:hover {
+      color: var(--strong);
+      transform: scale(1.1);
+    }
+
+    /* Main */
+    main {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: var(--strong);
+    }
+
+    /* Student info card */
+    .student-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem;
+      border-radius: var(--radius);
+      background: var(--card-bg);
+      border: 1px solid var(--muted-border);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+      margin-bottom: 2rem;
+    }
+
+    .student-icon {
+      font-size: 3rem;
+      color: var(--mid);
+      background: var(--soft);
+      padding: 1rem;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .student-info h2 {
+      margin-bottom: 0.3rem;
+      color: var(--strong);
+    }
+
+    .student-info p {
+      margin: 0.2rem 0;
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    /* Report list */
+    .report-card {
+      background: var(--card-bg);
+      border: 1px solid var(--muted-border);
+      border-radius: var(--radius);
+      padding: 1rem 1.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .report-details {
+      flex: 1;
+    }
+
+    .report-details h3 {
+      margin-bottom: 0.3rem;
+      color: var(--strong);
+    }
+
+    .report-details p {
+      font-size: 0.9rem;
+      margin: 0.2rem 0;
+      color: #444;
+    }
+
+    .report-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .report-actions i {
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: var(--mid);
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .report-actions i:hover {
+      color: var(--strong);
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+        <div class="brand-name">{{user.first_name}}</div>
+      </div>
+      <div class="icons">
+        <i class="fa-solid fa-user-plus" title="Add Teacher"></i>
+        <i style="transform: scale(-1, 1);" class="fa-solid fa-right-from-bracket" title="Logout"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main -->
+  <main>
+    <h1>Student Report</h1>
+
+    <!-- Student Info -->
+    <div class="student-card">
+      <div class="student-icon">
+        <i class="fa-solid fa-user"></i>
+      </div>
+      <div class="student-info">
+        <h2>{{student.name}}</h2>
+        <p>Class: {{student.classroom}}</p>
+        <p>ID: {{student.code}}</p>
+      </div>
+    </div>
+
+    <!-- Reports -->
+    {%for report in reports%}
+    <div class="report-card">
+      <div class="report-details">
+        <h3>{{report.date | date:"D d M Y"}}</h3>
+        <p>Monthly Absences: {{report.monthly_absences}}</p>
+      </div>
+      <div class="report-actions" style="cursor: pointer;" 
+        onclick="sendWhatsapp('{{student.phone}}', '{{report.date|date:'D d M Y'}}', '{{report.monthly_absences}}')">
+        <i class="fa-brands fa-whatsapp" title="Send to parent"></i>
+      </div>
+    </div>
+    {%endfor%}
+  </main>
+
+<script>
+  function sendWhatsapp(phone, date, monthlyAbsences) {
+    // Remove spaces, handle + if present
+    let cleanPhone = phone.replace(/\s+/g, '');
+    if (!cleanPhone.startsWith('+')) {
+      cleanPhone = '+2' + cleanPhone; // Egypt default country code, adjust if needed
+    }
+
+    let message = `Student Report for ${date}%0A` +
+                  `Monthly Absences: ${monthlyAbsences}`;
+    let url = `https://wa.me/${cleanPhone}?text=${message}`;
+    window.open(url, '_blank');
+  }
+</script>
+</body>
+</html>

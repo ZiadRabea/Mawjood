@@ -1,0 +1,168 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up - Mawjood</title>
+  <link rel="icon" href="{%static 'imgs/logo.png'%}" type="img/png"> 
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --bg: #F2EFE7;
+      --soft: #9ACBD0;
+      --mid: #48A6A7;
+      --strong: #2973B2;
+      --card-bg: #ffffff;
+      --muted-border: #e6e7e4;
+      --text: #21303a;
+      --radius: 12px;
+      --field-height: 44px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: var(--text);
+    }
+
+    .signup-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+      padding: 2rem;
+      width: 100%;
+      max-width: 420px;
+      border: 1px solid var(--muted-border);
+      text-align: center;
+    }
+
+    .signup-card img {
+      width: 60px;
+      height: 60px;
+      margin-bottom: 0.8rem;
+    }
+
+    .signup-card h1 {
+      margin: 0 0 1.5rem 0;
+      font-size: 1.4rem;
+      color: var(--strong);
+    }
+
+    .field {
+      text-align: left;
+      margin-bottom: 1rem;
+    }
+
+    .field label {
+      display: block;
+      font-size: 0.85rem;
+      color: #555;
+      margin-bottom: 0.3rem;
+    }
+
+    input, select {
+      width: 100%;
+      height: var(--field-height);
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--muted-border);
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--mid);
+      box-shadow: 0 0 0 3px rgba(72,166,167,0.15);
+    }
+
+    .btn {
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      padding: 0.8rem;
+      font-size: 1rem;
+      cursor: pointer;
+      background: var(--mid);
+      color: #fff;
+      font-weight: bold;
+      transition: background 0.2s ease;
+    }
+
+    .btn:hover {
+      background: var(--strong);
+    }
+
+    .signup-footer {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .signup-footer a {
+      color: var(--strong);
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .signup-footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="signup-card">
+      <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+      <h1>Create Account</h1>
+      <form method="post" enctype="multipart/form-data">
+          {%csrf_token%}
+          <div class="field">
+            <label for="fullname">Username</label>
+            {{form.username}}
+          </div>
+    
+          <div class="field">
+            <label for="email">Password</label>
+            {{form.password1}}
+          </div>
+    
+          <div class="field">
+            <label for="password">Confirm Password</label>
+            {{form.password2}}
+          </div>
+    
+          <div class="field">
+            <label for="role">Role</label>
+            <select id="role">
+              <option value="">Select role</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </div>
+    
+          <button class="btn" type="submit">Sign Up</button>
+        </form>
+    
+        <div class="signup-footer">
+          <p>Already have an account? <a href="#">Login</a></p>
+        </div>
+      </div>       
+  </body>
+</html>
+<script>
+  document.getElementById("id_username").placeholder = "User_name";
+  document.getElementById("id_password1").placeholder = "Password";
+  document.getElementById("id_password2").placeholder = "Confirm password";
+  document.getElementById("id_email").placeholder = "Email address";
+  document.getElementById("id_first_name").placeholder = "First name";
+  document.getElementById("id_last_name").placeholder = "Last name";
+</script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Mawjood | Classrooms </title>
+  <link rel="icon" href="{%static 'imgs/logo.png'%}" type="img/png">
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #F2EFE7;
+    }
+
+    header {
+      background-color: #F2EFE7;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #2973B2;
+    }
+
+    .icons {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .icons i {
+      font-size: 1.3rem;
+      color: #48A6A7;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .icons i:hover {
+      color: #2973B2;
+      transform: scale(1.1);
+    }
+
+    /* Grades Section */
+    .grades-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+
+    .grades-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .grades-header h2 {
+      color: #2973B2;
+      font-size: 1.5rem;
+    }
+
+    .view-toggle {
+      background: none;
+      border: 2px solid #9ACBD0;
+      color: #2973B2;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .view-toggle:hover {
+      background-color: #9ACBD0;
+      color: white;
+    }
+
+    .grades-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+      transition: all 0.3s ease;
+    }
+
+    .grade-card {
+      background-color: #9ACBD0;
+      color: white;
+      padding: 1.2rem;
+      border-radius: 12px;
+      text-align: center;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s ease, background-color 0.3s ease;
+    }
+
+    .grade-card:hover {
+      background-color: #48A6A7;
+      transform: translateY(-3px);
+    }
+
+    /* Menu View */
+    .menu-view {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .menu-view .grade-card {
+      text-align: left;
+      padding: 0.8rem 1rem;
+    }
+    a{
+        text-decoration: none;
+        color: inherit;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <!-- Brand + Logo -->
+      <div class="brand">
+        <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+        <div class="brand-name">{{user.first_name}}</div>
+      </div>
+
+      <!-- Right side icons -->
+      <div class="icons">
+        <!-- Add teacher -->
+        <a href="/add"><i class="fa-solid fa-user-plus" title="Add Teacher"></i></a>
+        <!-- Logout -->
+        <i style="transform: scale(-1, 1);" class="fa-solid fa-right-from-bracket" title="Logout"></i>
+      </div>
+    </div>
+  </header>
+
+  <!-- Grades Section -->
+  <section class="grades-container">
+    <div class="grades-header">
+      <h2>Classrooms</h2>
+      <button class="view-toggle" onclick="toggleView()">Toggle View</button>
+    </div>
+
+    <div id="grades" class="grades-grid">
+      {%for classroom in classrooms%}
+        <a href="/grades/{{grade.id}}/classrooms/{{classroom.id}}/students"><div class="grade-card">{{classroom.title}}</div></a>
+      {%endfor%}
+      {%if user.profile.type == "School"%}
+        <a href="/grades/{{grade.id}}/classrooms/manage"><div class="grade-card">+ Classroom</div></a>
+      {%endif%}
+    </div>
+  </section>
+
+  <script>
+    function toggleView() {
+      const grades = document.getElementById('grades');
+      grades.classList.toggle('menu-view');
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Error Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #F2EFE7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      color: #2973B2;
+    }
+
+    .error-container {
+      background: #fff;
+      padding: 2.5rem 3rem;
+      border-radius: 16px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      max-width: 480px;
+    }
+
+    .error-container i {
+      font-size: 3.2rem;
+      color: #48A6A7;
+      margin-bottom: 1rem;
+    }
+
+    .error-title {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-message {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      color: #555;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.7rem 1.6rem;
+      background-color: #2973B2;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px rgba(41, 115, 178, 0.3);
+    }
+
+    .back-btn .btn-content {
+      display: flex;
+      align-items: center; /* keeps icon + text aligned */
+      gap: 0.5rem;
+    }
+
+    .back-btn i {
+      font-size: 1rem;
+      transition: transform 0.3s ease, color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #48A6A7;
+      box-shadow: 0 6px 14px rgba(72, 166, 167, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .back-btn:hover i {
+      color: #fff;
+      transform: translateX(-4px); /* subtle pointing motion */
+    }
+  </style>
+</head>
+<body>
+
+  <div class="error-container">
+    <i class="fa-solid fa-triangle-exclamation"></i>
+    <div class="error-title">Oops! Something went wrong</div>
+    <div class="error-message">The page you’re looking for might have been removed, or the link is broken.</div>
+    <a href="/" class="back-btn">
+      <span class="btn-content">
+        <i style="height: 1px;" class="fa-solid fa-arrow-left"></i>
+        <span>Go Back Home</span>
+      </span>
+    </a>
+  </div>
+
+</body>
+</html>

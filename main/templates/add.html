@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add Options - School</title>
+  <!-- Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #F2EFE7;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .options-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .option-card {
+      background-color: #9ACBD0;
+      color: white;
+      width: 250px;
+      height: 250px;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .option-card i {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .option-card h3 {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    .option-card:hover {
+      background-color: #48A6A7;
+      transform: translateY(-6px);
+    }
+
+    @media (max-width: 600px) {
+      .option-card {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+    a{
+      text-decoration:none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="options-container">
+    <!-- Add Teacher Card -->
+    <a href="/accounts/sign_up">
+      <div class="option-card" title="Add Teacher">
+        <i class="fa-solid fa-user-plus"></i>
+        <h3>Add Teacher</h3>
+      </div>
+    </a>
+
+    <a href="/students/create">
+    <!-- Add Student Card -->
+      <div class="option-card" title="Add Student">
+        <i class="fa-solid fa-user-graduate"></i>
+        <h3>Add Student</h3>
+      </div>
+    </a>
+  </div>
+
+</body>
+</html>

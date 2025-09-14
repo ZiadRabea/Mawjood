@@ -1,0 +1,237 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mawjood - Add Student</title>
+  <!-- Font Awesome for icons -->
+  <link rel="icon" href="{%static 'imgs/logo.png'%}" type="img/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --bg: #F2EFE7;
+      --soft: #9ACBD0;
+      --mid: #48A6A7;
+      --strong: #2973B2;
+
+      --card-bg: #ffffff;
+      --muted-border: #e6e7e4;
+      --text: #21303a;
+      --subtle-shadow: 0 6px 18px rgba(18,26,30,0.06);
+      --radius: 12px;
+      --field-height: 44px;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Header */
+    header {
+      background: var(--bg);
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0.8rem 1.2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .brand img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+    .brand-name {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: var(--strong);
+    }
+    .icons {
+      display: flex;
+      gap: 1rem;
+    }
+    .icons i {
+      font-size: 1.2rem;
+      color: var(--mid);
+      cursor: pointer;
+      transition: color 0.2s ease, transform 0.2s ease;
+    }
+    .icons i:hover {
+      color: var(--strong);
+      transform: translateY(-2px);
+    }
+
+    /* Page */
+    .page {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1rem;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--subtle-shadow);
+      padding: 1.5rem;
+      border: 1px solid var(--muted-border);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.4rem;
+      color: var(--strong);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+    .field label {
+      font-size: 0.85rem;
+      color: #555;
+    }
+
+    input, select {
+      height: var(--field-height);
+      padding: 8px 12px;
+      border: 1px solid var(--muted-border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+    }
+
+    select {
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="8" viewBox="0 0 12 8"><path fill="%232973B2" d="M6 8L0 0h12z"/></svg>');
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 12px 8px;
+      padding-right: 36px;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--mid);
+      box-shadow: 0 0 0 3px rgba(72,166,167,0.15);
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .actions {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.8rem;
+    }
+    .btn {
+      border: none;
+      border-radius: 8px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--strong);
+      border: 1px solid var(--muted-border);
+    }
+    .btn-primary {
+      background: var(--mid);
+      color: #fff;
+    }
+    .btn-primary:hover {
+      background: var(--strong);
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <div class="brand">
+        <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+        <div class="brand-name">{{user.first_name}}</div>
+      </div>
+      <div class="icons">
+        <a href="/add"><i class="fa-solid fa-user-plus" title="Add Teacher"></i></a>
+        <i class="fa-solid fa-right-from-bracket" style="transform: scaleX(-1);" title="Logout"></i>
+      </div>
+    </div>
+  </header>
+
+  <div class="page">
+    <div class="card">
+      <h2><i class="fa-solid fa-user-graduate"></i> Add Student</h2>
+      <form method="post" enctype="multipart/form-data" class="form-grid">
+        {%csrf_token%}
+        <div class="field">
+          <label for="s-name">Full Name</label>
+          {{form.name}}
+        </div>
+        <div class="field">
+          <label for="s-id">Student ID</label>
+          {{form.code}}
+        </div>
+        <div class="field">
+          <label for="s-grade">Grade</label>
+          {{form.grade}}
+        </div>
+        <div class="field">
+          <label for="s-class">Class</label>
+          {{form.classroom}}
+        </div>
+        <div class="field full">
+          <label for="s-parent">Parent Contact</label>
+          {{form.phone}}
+        </div>
+        <div class="actions full">
+          <button class="btn btn-ghost" type="button">Cancel</button>
+          <button class="btn btn-primary" type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script>
+    document.getElementById('id_phone').placeholder = "+20 1X XXX XXXX"
+    document.getElementById('id_name').placeholder = "e.g. Omar Khalid"
+    document.getElementById('id_code').placeholder = "e.g. ST-00123"
+  </script>
+</body>
+</html>

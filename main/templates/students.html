@@ -1,0 +1,417 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mawjood - Student List</title>
+  <!-- Font Awesome for icons -->
+  <link rel="icon" href="{%static 'imgs/logo.png'%}" type="img/png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #F2EFE7;
+    }
+
+    /* ============ HEADER ============ */
+    header {
+      background-color: #F2EFE7;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.8rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .brand img {
+      width: 40px;
+      height: 40px;
+      object-fit: contain;
+    }
+
+    .brand-name {
+      font-size: 1.4rem;
+      font-weight: bold;
+      color: #2973B2;
+    }
+
+    .icons {
+      display: flex;
+      gap: 1.2rem;
+      align-items: center;
+    }
+
+    .icons i {
+      font-size: 1.3rem;
+      color: #48A6A7;
+      cursor: pointer;
+      transition: color 0.3s ease, transform 0.2s ease;
+    }
+
+    .icons i:hover {
+      color: #2973B2;
+      transform: scale(1.1);
+    }
+
+    /* ============ STUDENTS SECTION ============ */
+    .students-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1rem 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .students-header {
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .students-header h2 {
+      color: #2973B2;
+      font-size: 1.5rem;
+    }
+    .confirm-btn {
+      background-color: #2973B2;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .confirm-btn:hover {
+      background-color: #1f5787;
+      transform: scale(1.05);
+    }
+
+    .student-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.8rem 1rem;
+      margin-bottom: 0.8rem;
+      border-radius: 8px;
+      background-color: #F2EFE7;
+      transition: background-color 0.3s ease;
+    }
+
+    .student-row:hover {
+      background-color: #e3e0d5;
+    }
+
+    .student-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .student-info i {
+      font-size: 1.6rem;
+      color: #48A6A7;
+    }
+
+    .student-name {
+      font-weight: bold;
+      color: #2973B2;
+    }
+
+    .absence {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
+    .actions {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .actions button {
+      border: none;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .actions .attend {
+      background-color: #48A6A7;
+      color: white;
+    }
+
+    .actions .attend:hover {
+      background-color: #2973B2;
+      transform: scale(1.05);
+    }
+    .actions .reports {
+      background-color: #2973B2;
+      color: white;
+    }
+
+    .actions .reports:hover {
+      background-color: #1f5787;
+      transform: scale(1.05);
+    }
+    .actions .absent {
+      background-color: #b23b3b;
+      color: white;
+    }
+
+    .actions .absent:hover {
+      background-color: #8b2b2b;
+      transform: scale(1.05);
+    }
+    a{
+      text-decoration: none;
+    }
+    /* Responsive improvements for School action buttons */
+    .actions {
+      display: flex;
+      flex-wrap: wrap; /* allow buttons to wrap if too tight */
+      gap: 0.6rem;
+      justify-content: flex-end;
+    }
+
+    .actions button {
+      flex: 1 1 auto; /* allow flexible sizing */
+      min-width: 40px;
+    }
+
+    /* Mobile screens */
+    @media (max-width: 600px) {
+      .student-row {
+        flex-direction: column; /* stack info + actions */
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+
+      .actions {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .actions button {
+        flex: unset;
+        width: 48%; /* two per row on small screens */
+      }
+    }
+    @media print {
+      body {
+        background: white !important;
+      }
+      header, .actions, .icons, .confirm-btn {
+        display: none !important;
+      }
+      .students-container {
+        box-shadow: none !important;
+        border: 1px solid #000;
+      }
+      .student-row {
+        background: white !important;
+        border-bottom: 1px solid #ccc;
+      }
+      .student-info i {
+        display: none; /* hide icons */
+      }
+      .student-name {
+        color: black !important;
+      }
+      .absence {
+        color: black !important;
+      }
+      .students-header h2 {
+        color: black !important;
+        text-align: center;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+      }
+    }
+    .flash-messages {
+      position: fixed;
+      top: 70px;
+      right: 20px;
+      z-index: 2000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .flash {
+      padding: 1rem 1.2rem;
+      border-radius: 8px;
+      color: #fff;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 250px;
+      max-width: 400px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+      animation: fadeIn 0.3s ease;
+    }
+    .flash.success { background-color: #48A6A7; }
+    .flash.error { background-color: #b23b3b; }
+    .flash.info { background-color: #2973B2; }
+    .flash .close-btn {
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      margin-left: 1rem;
+      transition: transform 0.2s ease;
+    }
+    .flash .close-btn:hover { transform: scale(1.2); }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translateY(0); }
+      to { opacity: 0; transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container">
+      <!-- Brand + Logo -->
+      <div class="brand">
+        <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+        <div class="brand-name">{{user.first_name}}</div>
+      </div>
+
+      <!-- Right side icons -->
+      <div class="icons">
+        <!-- Add teacher -->
+        <a href="/add"><i class="fa-solid fa-user-plus" title="Add Teacher"></i></a>
+        <!-- Logout -->
+        <i style="transform: scale(-1, 1);" class="fa-solid fa-right-from-bracket" title="Logout"></i>
+      </div>
+    </div>
+  </header>
+  <div class="flash-messages">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="flash {{ message.tags }}">
+          <span>{{ message }}</span>
+          <button class="close-btn">&times;</button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+  <!-- STUDENTS SECTION -->
+  <div class="students-container">
+    <div class="students-header">
+      <h2>{{classroom.title}} - Student List</h2>
+    </div>
+
+    {%for student in students%}
+    <div class="student-row">
+      <div class="student-info">
+        <i class="fa-solid fa-user-circle"></i>
+        <div>
+          <div class="student-name">{{student.name}}</div>
+          <div class="absence">
+            This Month: {{student.monthly_absence}} | Total: {{student.total_absence}}
+          </div>
+        </div>
+      </div>
+      {%if student.registered and student.attending%}
+      <div class="actions">
+        <button style="background-color:transparent;" class="attend" title="Present">
+          <i style="color: green; font-weight: bold;" class="fa-solid fa-check"></i>
+        </button>
+      </div>
+      {%elif student.registered and not student.attending%}
+        <div class="actions">
+          <button style="background-color:transparent;" class="absent" title="Absent">
+            <i style="color: red; font-weight: bold;" class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+      {%elif not student.registered and user.profile.type == "Teacher"%}
+        <div class="actions">
+          <a href="/students/{{student.id}}/present">
+            <button class="attend" title="Mark Present">
+              <i class="fa-solid fa-check"></i>
+            </button>
+          </a>
+          <a href="/students/{{student.id}}/absent">
+            <button class="absent" title="Mark Absent">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </a>
+        </div>
+      {%endif%}
+    
+    {%if user.profile.type == "School"%}
+      <div class="actions">
+        <a href="/students/{{student.id}}/edit">
+          <button class="attend" title="Mark Present">
+            <i class="fa-solid fa-pen"></i>
+          </button>
+        </a>
+        <a href="/students/{{student.id}}/delete">
+          <button class="absent" title="Mark Absent">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </a>
+        <a href="/students/{{student.id}}/reports">
+          <button class="reports" title="Mark Present">
+            <i class="fa-solid fa-file-lines"></i>
+          </button>
+        </a>
+      </div>
+    {%endif%}
+    </div>
+    {%endfor%}
+
+    <!-- Confirm Button -->
+    {%if user.profile.type == "Teacher"%}
+    <a href="/students/classroom/{{classroom.id}}/confirm_absence"><div style="text-align:center; margin-top: 2rem;">
+      <button class="confirm-btn">
+        <i class="fa-solid fa-check-double"></i> Confirm Attendance
+      </button>
+    </div></a>
+    {%endif%}
+
+    {%if user.profile.type == "School"%}
+    <a href="/students/classroom/{{classroom.id}}/generate_reports">
+      <div style="text-align:center; margin-top: 2rem;">
+        <button class="confirm-btn">
+          <i class="fa-regular fa-file-lines"></i> Generate Reports
+        </button>
+      </div>
+    </a>
+    {%endif%}
+  </div>
+
+</body>
+</html>
