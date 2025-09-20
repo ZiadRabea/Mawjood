@@ -302,11 +302,12 @@
   <header>
     <div class="container">
       <!-- Brand + Logo -->
-      <div class="brand">
-        <img src="{%static 'imgs/logo.png'%}" alt="Logo">
-        <div class="brand-name">{{user.first_name}}</div>
-      </div>
-
+      <a href="/">
+        <div class="brand">
+          <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+          <div class="brand-name">{{user.first_name}}</div>
+        </div>
+      </a>
       <!-- Right side icons -->
       <div class="icons">
         <!-- Add teacher -->
@@ -412,6 +413,20 @@
     </a>
     {%endif%}
   </div>
+  <script>
+    // Auto hide after 5 seconds
+    document.querySelectorAll('.flash').forEach((msg) => {
+      setTimeout(() => {
+        msg.style.animation = 'fadeOut 0.4s forwards';
+        setTimeout(() => msg.remove(), 400);
+      }, 5000);
 
+      // Manual close
+      msg.querySelector('.close-btn').addEventListener('click', () => {
+        msg.style.animation = 'fadeOut 0.4s forwards';
+        setTimeout(() => msg.remove(), 400);
+      });
+    });
+  </script>
 </body>
 </html>

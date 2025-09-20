@@ -10,6 +10,7 @@ sqlparse==0.5.1
 tzdata==2024.1
 pillow==10.4.0
 django-filter==24.3
+gunicorn
 requests
 urllib3
 beautifulsoup4

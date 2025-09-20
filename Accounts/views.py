@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.contrib import messages
 from .models import *
 from django.contrib.auth.decorators import login_required
 # Create your views here.
@@ -24,8 +25,8 @@ def sign_up(request):
                 username = Form.cleaned_data['username']
                 password = Form.cleaned_data['password1']
                 user = authenticate(username=username, password=password)
-                login(request, user)
-                return redirect(f'/')
+                messages.success(request, f"Success : \n Username : {username} \n Password : {password}")
+                return redirect(f'/accounts/sign_up')
         else:
             Form = SignUP()
         return render(request, 'registration/sign_up.html', {'form': Form})

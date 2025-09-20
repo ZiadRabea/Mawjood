@@ -173,6 +173,9 @@
       color: var(--strong);
       transform: scale(1.1);
     }
+    a{
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
@@ -180,10 +183,12 @@
   <!-- Header -->
   <header>
     <div class="header-container">
-      <div class="brand">
-        <img src="{%static 'imgs/logo.png'%}" alt="Logo">
-        <div class="brand-name">{{user.first_name}}</div>
-      </div>
+      <a href="/">
+        <div class="brand">
+          <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+          <div class="brand-name">{{user.first_name}}</div>
+        </div>
+      </a>
       <div class="icons">
         <i class="fa-solid fa-user-plus" title="Add Teacher"></i>
         <i style="transform: scale(-1, 1);" class="fa-solid fa-right-from-bracket" title="Logout"></i>

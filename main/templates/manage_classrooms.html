@@ -186,10 +186,12 @@
   <!-- Header -->
   <header>
     <div class="header-container">
-      <div class="brand">
-        <img src="{%static 'imgs/logo.png'%}" alt="Logo">
-        <div class="brand-name">{{uesr.first_name}}</div>
-      </div>
+      <a href="/">
+        <div class="brand">
+          <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+          <div class="brand-name">{{user.first_name}}</div>
+        </div>
+      </a>
       <div class="icons">
         <a href="/add"><i class="fa-solid fa-user-plus" title="Add Teacher"></i></a>
         <i style="transform: scale(-1, 1);" class="fa-solid fa-right-from-bracket" title="Logout"></i>
