@@ -142,7 +142,7 @@ CLOUDINARY_STORAGE = {
     'API_KEY': "286712483219718",
     'API_SECRET': "QlRJ8VEx6MBXSaQDYV2kTIb5J0A"
 }
-
+LOGOUT_REDIRECT_URL = "/"
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"

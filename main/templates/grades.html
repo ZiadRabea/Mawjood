@@ -157,7 +157,10 @@
         <!-- Add teacher -->
         <a href="/add"><i class="fa-solid fa-user-plus" title="Add Teacher"></i></a>
         <!-- Logout -->
-        <i style="transform: scale(-1, 1);" class="fa-solid fa-right-from-bracket" title="Logout"></i>
+        <form method="POST" action="{%url 'logout'%}">
+          {%csrf_token%}
+          <button type="submit" style="background: none; border: none; outline: none;"><i style="transform: scale(-1, 1);" class="fa-solid fa-right-from-bracket" title="Logout"></i></button>
+        </form>
       </div>
     </div>
   </header>
