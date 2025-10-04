@@ -148,9 +148,13 @@
     <div class="container">
       <!-- Brand + Logo -->
       <div class="brand">
-        <img src="{%static 'imgs/logo.png'%}" alt="Logo">
-        <div class="brand-name">{{user.first_name}}</div>
-      </div>
+          <img src="{%static 'imgs/logo.png'%}" alt="Logo">
+          {%if user.profile.type == "School"%}
+            <div class="brand-name">{{user.first_name}}</div>
+          {%else%}
+            <div class="brand-name">{{user.profile.school.user.first_name}}</div>
+          {%endif%}
+        </div>
 
       <!-- Right side icons -->
       <div class="icons">
